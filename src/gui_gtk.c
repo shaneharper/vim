@@ -1884,7 +1884,7 @@ gui_mch_show_popupmenu(vimmenu_T *menu)
     gtk_menu_popup(GTK_MENU(menu->submenu_id),
 		   NULL, NULL,
 		   (GtkMenuPositionFunc)NULL, NULL,
-		   3U, gui.event_time);
+		   0 /*XXX Using 0 instead of 3 (right mouse button) is a workaround for what I suspect is a GTK+2 (v2.24.23) and a GTK+3 bug where the callback function for submenu items won't be called if a submenu item is clicked on after a time (very roughly 200ms) has passed between gui.event_time (time of last mouse/key press/release) and the time gtk_menu_popup is called. */, gui.event_time);
 }
 
 /* Ugly global variable to pass "mouse_pos" flag from gui_make_popup() to
