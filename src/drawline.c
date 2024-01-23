@@ -518,7 +518,7 @@ handle_breakindent(win_T *wp, winlinevars_T *wlv)
 	    wlv->c_final = NUL;
 	    wlv->n_extra = get_breakindent_win(wp,
 				   ml_get_buf(wp->w_buffer, wlv->lnum, FALSE));
-	    if (wlv->row == wlv->startrow)
+	    if (wlv->row == wlv->startrow + wlv->filler_lines)
 	    {
 		wlv->n_extra -= win_col_off2(wp);
 		if (wlv->n_extra < 0)
@@ -536,7 +536,7 @@ handle_breakindent(win_T *wp, winlinevars_T *wlv)
 		wlv->tocol += wlv->n_extra;
 	}
 
-	if (wp->w_skipcol > 0 && wlv->startrow == 0 && wp->w_p_wrap
+	if (wp->w_skipcol > 0 && wlv->startrow + wlv->filler_lines == 0 && wp->w_p_wrap
 							   && wp->w_briopt_sbr)
 	    wlv->need_showbreak = FALSE;
     }
