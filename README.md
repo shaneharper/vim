@@ -1,3 +1,17 @@
+## Notes about this branch:
+
+Vim patch 9.0.2151 fixed a bug with indentation being incorrect after a
+"filler line" in a diff window. To do that wlv->filler_lines was added to
+the first instance (only) of wlv->startrow in handle_breakindent(). It
+looked a bit suspicious to me that wlv->filler_lines wasn't added
+everywhere that wlv->startrow appeared in that function. I couldn't see why
+not so I tried adding wlv->filler_lines wherever wlv->startrow appeared in
+handle_breakindent(). To run the tests I committed the change and pushed to
+github (my branch = always_add_filler_lines_to_startrow) and waited for the
+CI tests to complete. According to
+https://github.com/shaneharper/vim/actions/runs/7619761222 all tests
+passed!
+
 # [![Vim The editor](https://github.com/vim/vim/raw/master/runtime/vimlogo.gif)](https://www.vim.org)
 
 [![Github Build status](https://github.com/vim/vim/workflows/GitHub%20CI/badge.svg)](https://github.com/vim/vim/actions?query=workflow%3A%22GitHub+CI%22)
