@@ -5293,7 +5293,7 @@ put_callback(callback_T *cb, typval_T *tv)
  * Make a copy of "src" into "dest", allocating the function name if needed,
  * without incrementing the refcount.
  */
-    void
+    static void
 set_callback(callback_T *dest, callback_T *src)
 {
     if (src->cb_partial == NULL)
@@ -5309,6 +5309,16 @@ set_callback(callback_T *dest, callback_T *src)
 	dest->cb_free_name = FALSE;
     }
     dest->cb_partial = src->cb_partial;
+}
+
+    void
+transfer_callback(callback_T *dest, callback_T *src)
+{
+    set_callback(dest, src);
+    if (src->cb_free_name)
+	vim_free(src->cb_name);
+    src->cb_name = NULL;
+    src->cb_partial = NULL;
 }
 
 /*

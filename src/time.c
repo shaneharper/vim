@@ -911,9 +911,7 @@ f_timer_start(typval_T *argvars, typval_T *rettv)
 	free_callback(&callback);
 	return;
     }
-    set_callback(&timer->tr_callback, &callback);
-    if (callback.cb_free_name)
-	vim_free(callback.cb_name);
+    transfer_callback(&timer->tr_callback, &callback);
     rettv->vval.v_number = (varnumber_T)timer->tr_id;
 }
 

@@ -8988,9 +8988,7 @@ option_set_callback_func(char_u *optval UNUSED, callback_T *optcb UNUSED)
     }
 
     free_callback(optcb);
-    set_callback(optcb, &cb);
-    if (cb.cb_free_name)
-	vim_free(cb.cb_name);
+    transfer_callback(optcb, &cb);
     free_tv(tv);
 
     char_u  *dot = NULL;

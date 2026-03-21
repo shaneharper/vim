@@ -107,7 +107,7 @@ void f_setwinvar(typval_T *argvars, typval_T *rettv);
 void f_setbufvar(typval_T *argvars, typval_T *rettv);
 callback_T get_callback(typval_T *arg);
 void put_callback(callback_T *cb, typval_T *tv);
-void set_callback(callback_T *dest, callback_T *src);
+void transfer_callback(callback_T *dest, callback_T *src);
 void copy_callback(callback_T *dest, callback_T *src);
 void expand_autload_callback(callback_T *cb);
 void free_callback(callback_T *callback);

@@ -1036,9 +1036,7 @@ apply_general_options(win_T *wp, dict_T *dict)
 	if (callback.cb_name != NULL)
 	{
 	    free_callback(&wp->w_filter_cb);
-	    set_callback(&wp->w_filter_cb, &callback);
-	    if (callback.cb_free_name)
-		vim_free(callback.cb_name);
+	    transfer_callback(&wp->w_filter_cb, &callback);
 	}
     }
     nr = dict_get_bool(dict, "mapping", -1);
@@ -1068,9 +1066,7 @@ apply_general_options(win_T *wp, dict_T *dict)
 	return OK;
 
     free_callback(&wp->w_close_cb);
-    set_callback(&wp->w_close_cb, &callback);
-    if (callback.cb_free_name)
-	vim_free(callback.cb_name);
+    transfer_callback(&wp->w_close_cb, &callback);
 
     return OK;
 }
@@ -2517,9 +2513,7 @@ popup_create(typval_T *argvars, typval_T *rettv, create_type_T type)
 	callback = get_callback(&tv);
 	if (callback.cb_name != NULL)
 	{
-	    set_callback(&wp->w_filter_cb, &callback);
-	    if (callback.cb_free_name)
-		vim_free(callback.cb_name);
+	    transfer_callback(&wp->w_filter_cb, &callback);
 	}
 
 	wp->w_p_wrap = 0;

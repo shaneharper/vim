@@ -1698,9 +1698,7 @@ f_prompt_setcallback(typval_T *argvars, typval_T *rettv UNUSED)
 	return;
 
     free_callback(&buf->b_prompt_callback);
-    set_callback(&buf->b_prompt_callback, &callback);
-    if (callback.cb_free_name)
-	vim_free(callback.cb_name);
+    transfer_callback(&buf->b_prompt_callback, &callback);
 }
 
 /*
@@ -1727,9 +1725,7 @@ f_prompt_setinterrupt(typval_T *argvars, typval_T *rettv UNUSED)
 	return;
 
     free_callback(&buf->b_prompt_interrupt);
-    set_callback(&buf->b_prompt_interrupt, &callback);
-    if (callback.cb_free_name)
-	vim_free(callback.cb_name);
+    transfer_callback(&buf->b_prompt_interrupt, &callback);
 }
 
 

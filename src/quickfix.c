@@ -8159,10 +8159,7 @@ qf_setprop_qftf(qf_info_T *qi UNUSED, qf_list_T *qfl, dictitem_T *di)
     if (cb.cb_name == NULL || *cb.cb_name == NUL)
 	return OK;
 
-    set_callback(&qfl->qf_qftf_cb, &cb);
-    if (cb.cb_free_name)
-	vim_free(cb.cb_name);
-
+    transfer_callback(&qfl->qf_qftf_cb, &cb);
     return OK;
 }
 
