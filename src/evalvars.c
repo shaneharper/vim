@@ -5289,6 +5289,23 @@ put_callback(callback_T *cb, typval_T *tv)
     }
 }
 
+    static bool
+does_callback_own_cb_name(callback_T *cb)
+{
+    return cb->cb_partial  /* *cb_name is owned by the partial. */
+	|| cb->cb_free_name;
+}
+
+    static void
+ensure_callback_owns_cb_name(callback_T *cb)
+{
+    if (!does_callback_own_cb_name(cb) && cb->cb_name)
+    {
+	cb->cb_name = vim_strsave(cb->cb_name);
+	cb->cb_free_name = TRUE;
+    }
+}
+
 /*
  * Make a copy of "src" into "dest", allocating the function name if needed,
  * without incrementing the refcount.
@@ -5296,19 +5313,10 @@ put_callback(callback_T *cb, typval_T *tv)
     void
 set_callback(callback_T *dest, callback_T *src)
 {
-    if (src->cb_partial == NULL)
-    {
-	// just a function name, make a copy
-	dest->cb_name = vim_strsave(src->cb_name);
-	dest->cb_free_name = TRUE;
-    }
-    else
-    {
-	// cb_name is a pointer into cb_partial
-	dest->cb_name = src->cb_name;
-	dest->cb_free_name = FALSE;
-    }
-    dest->cb_partial = src->cb_partial;
+    *dest = *src;
+    ensure_callback_owns_cb_name(dest);
+    src->cb_name = NULL;
+    src->cb_partial = NULL;
 }
 
 /*
