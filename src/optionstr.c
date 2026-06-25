@@ -3559,7 +3559,7 @@ expand_set_popupoption(optexpand_T *args, int *numMatches, char_u ***matches,
 		    highlight_len) == 0;
 	int is_borderhighlight
 	    = xp->xp_pattern - args->oe_set_arg >= borderhighlight_len
-	    && STRNCMP(xp->xp_pattern - borderhighlight_len, "highlight:",
+	    && STRNCMP(xp->xp_pattern - borderhighlight_len, "borderhighlight:",
 		    borderhighlight_len) == 0;
 	if (is_highlight || is_borderhighlight)
 	{
