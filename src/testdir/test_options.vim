@@ -663,10 +663,11 @@ func Test_set_completion_string_values()
   call feedkeys(":set completepopup=height:10,align:\<Tab>\<C-B>\"\<CR>", 'xt')
   call assert_equal('"set completepopup=height:10,align:item', @:)
   call assert_equal([], getcompletion('set completepopup=bogusname:', 'cmdline'))
-  " a name ending in a known sub-option name is not a sub-option
+  " Check with an invalid sub-option name that ends with a valid name.
   call assert_equal([], getcompletion('set completepopup=invalid_close:', 'cmdline'))
   call assert_equal([], getcompletion('set completepopup=xborder:', 'cmdline'))
   call assert_equal([], getcompletion('set completepopup=xhighlight:', 'cmdline'))
+
   call assert_equal(['on', 'off'],
         \ getcompletion('set completepopup=border:on,close:', 'cmdline'))
   call assert_equal(['on', 'off'], getcompletion('set completepopup=close:', 'cmdline'))
