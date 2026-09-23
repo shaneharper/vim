@@ -1147,7 +1147,8 @@ completing_value_for_subopt_len(optexpand_T *args, char *name, int len)
 
     if (off < len)
 	return false;
-    // The name must follow a comma when it does not start the option value.
+    // The name must immediately follow a ',' or be at the start of the option
+    // value.
     if (off > len && *(colon - len - 1) != ',')
 	return false;
 
